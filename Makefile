@@ -1,6 +1,6 @@
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 76
+SUBLEVEL = 77
 EXTRAVERSION =
 NAME = Sneaky Weasel
 
@@ -195,8 +195,8 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= arm
 # CROSS_COMPILE=/home/googy/Desktop/arm-2009q3/bin/arm-none-linux-gnueabi-
 # CROSS_COMPILE=/home/googy/Desktop/arm-linaro/bin/arm-linux-gnueabi-
-# CROSS_COMPILE=/home/googy/Desktop/arm-linaro2/bin/arm-linux-gnueabihf-
-CROSS_COMPILE=/usr/bin/arm-linux-gnueabihf-
+CROSS_COMPILE=/home/googy/Desktop/arm-linaro2/bin/arm-linux-gnueabihf-
+# CROSS_COMPILE=/usr/bin/arm-linux-gnueabihf-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -333,7 +333,7 @@ include $(srctree)/scripts/Kbuild.include
 
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-CC		= $(CROSS_COMPILE)gcc-4.7
+CC		= $(CROSS_COMPILE)gcc
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
