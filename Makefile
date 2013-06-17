@@ -1,6 +1,6 @@
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 81
+SUBLEVEL = 82
 EXTRAVERSION =
 NAME = Sneaky Weasel
 
@@ -378,7 +378,8 @@ GOOGY_FLAGS   = -marm -march=armv7-a \
          -Wno-array-bounds \
          -floop-strip-mine -floop-block \
 	-fpredictive-commoning -fgcse-after-reload -ftree-vectorize -fipa-cp-clone \
-	-fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-distribution -floop-parallelize-all -ftree-parallelize-loops=4
+	-fmodulo-sched -fmodulo-sched-allow-regmoves 
+#	-ftree-loop-distribution -floop-parallelize-all -ftree-parallelize-loops=4
 
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
