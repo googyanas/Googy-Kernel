@@ -1,6 +1,6 @@
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 82
+SUBLEVEL = 83
 EXTRAVERSION =
 NAME = Sneaky Weasel
 
@@ -195,7 +195,7 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= arm
 # CROSS_COMPILE=/home/googy/Desktop/arm-2009q3/bin/arm-none-linux-gnueabi-
 # CROSS_COMPILE=/home/googy/Desktop/arm-linaro/bin/arm-linux-gnueabi-
-CROSS_COMPILE=/home/googy/Desktop/arm-linaro2/bin/arm-linux-gnueabihf-
+CROSS_COMPILE=/usr/bin/arm-linux-gnueabi-
 # CROSS_COMPILE=/usr/bin/arm-linux-gnueabihf-
 
 # Architecture as present in compile.h
@@ -333,7 +333,7 @@ include $(srctree)/scripts/Kbuild.include
 
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-CC		= $(CROSS_COMPILE)gcc
+CC		= $(CROSS_COMPILE)gcc-4.7
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -353,7 +353,7 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 CFLAGS_MODULE   =
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  = --strip-debug
-CFLAGS_KERNEL	=
+CFLAGS_KERNEL	= -funswitch-loops -fpredictive-commoning -fgcse-after-reload -ftree-vectorize -fipa-cp-clone -fsingle-precision-constant -pipe
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -368,24 +368,28 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 KBUILD_CPPFLAGS := -D__KERNEL__
 
 GOOGY_FLAGS   = -marm -march=armv7-a \
-         -mcpu=cortex-a9 -mfpu=vfp3 \
-         -fgraphite-identity -fsched-spec-load \
-         -floop-interchange -floop-strip-mine -floop-block \
-         -ffast-math -ftree-vectorize \
-         -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
-         -fmodulo-sched -fmodulo-sched-allow-regmoves \
-         -fipa-cp-clone -pipe \
-         -Wno-array-bounds \
-         -floop-strip-mine -floop-block \
-	-fpredictive-commoning -fgcse-after-reload -ftree-vectorize -fipa-cp-clone \
-	-fmodulo-sched -fmodulo-sched-allow-regmoves 
+		-mcpu=cortex-a9 -mfpu=vfp3 \
+         -Wno-array-bounds -ffast-math -fno-pic \
+
+#         -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+#        -fmodulo-sched -fmodulo-sched-allow-regmoves \
+#         -fipa-cp-clone -pipe \
+#	-fgraphite-identity -fsched-spec-load \
+#	-floop-interchange -floop-strip-mine -floop-block \
+#	-fpredictive-commoning -fgcse-after-reload -ftree-vectorize -fipa-cp-clone \
+#	-fmodulo-sched -fmodulo-sched-allow-regmoves \
+#	-mno-unaligned-access
+
 #	-ftree-loop-distribution -floop-parallelize-all -ftree-parallelize-loops=4
 
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
-		   -fno-delete-null-pointer-checks $(GOOGY_FLAGS)
+		   -fno-delete-null-pointer-checks $(GOOGY_FLAGS) \
+		   -mtune=cortex-a9
+# $(GOOGY_FLAGS)
+		   
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
