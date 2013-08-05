@@ -369,7 +369,7 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 KBUILD_CPPFLAGS := -D__KERNEL__
 
 GOOGY_FLAGS   = -marm -march=armv7-a \
-		-mcpu=cortex-a9 -mfpu=vfp3 \
+		-mcpu=cortex-a9 -mfpu=neon \
          -Wno-array-bounds -fno-pic 
 #         -ffast-math -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 #        -fmodulo-sched -fmodulo-sched-allow-regmoves \
